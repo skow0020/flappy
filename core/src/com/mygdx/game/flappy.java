@@ -69,7 +69,7 @@ public class flappy extends ApplicationAdapter {
 	public void gameOver(){
 		gameState = 0;
 		batch.begin();
-		font.draw(batch, "GAME OVER", 200, 500);
+		font.draw(batch, "GAME OVER", 100, 500);
 		batch.end();
 		if (Gdx.input.justTouched()) {
 			reset();
