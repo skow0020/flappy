@@ -36,6 +36,7 @@ public class flappy extends ApplicationAdapter {
 	Rectangle recTop;
 	Rectangle recBottom;
 	Random randomGenerator;
+	//testing
 	
 	@Override
 	public void create () {
