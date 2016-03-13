@@ -31,7 +31,7 @@ public class flappy extends ApplicationAdapter {
 	int score = 0;
 	float midY = 0;
 	float tubeX = 0;
-	float gap = 500;
+	float gap = 600;
 	Circle birdCircle;
 	Rectangle recTop;
 	Rectangle recBottom;
@@ -81,7 +81,7 @@ public class flappy extends ApplicationAdapter {
 	@Override
 	public void render () {
 		if (gameState != 0) {
-			if (Gdx.input.justTouched()) {
+			if (Gdx.input.justTouched() && birdY < Gdx.graphics.getHeight()) {
 				velocity = -20;
 
 			}
@@ -97,7 +97,11 @@ public class flappy extends ApplicationAdapter {
 			else
 			{
 				tubeX = Gdx.graphics.getWidth();
-				midY = randomGenerator.nextInt(Gdx.graphics.getHeight() - 500) + 250;
+				midY = randomGenerator.nextInt(Gdx.graphics.getHeight() - 700) + 250;
+			}
+			if (tubeX < Gdx.graphics.getWidth() / 2 && tubeX >= Gdx.graphics.getWidth() / 2 - 10)
+			{
+				score++;
 			}
 		}
 		else if (Gdx.input.justTouched())
@@ -127,10 +131,6 @@ public class flappy extends ApplicationAdapter {
 		recTop.set(tubeX, midY + gap / 2, topTube.getWidth(), topTube.getHeight());
 		recBottom.set(tubeX, midY - bottomTube.getHeight() - gap / 2, bottomTube.getWidth(), bottomTube.getHeight());
 
-		if (tubeX < Gdx.graphics.getWidth() / 2 && tubeX >= Gdx.graphics.getWidth() / 2 - 10)
-		{
-			score++;
-		}
 		if (Intersector.overlaps(birdCircle, recBottom) || Intersector.overlaps(birdCircle, recTop))
 		{
 			gameOver();
