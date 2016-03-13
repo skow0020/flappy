@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.math.Rectangle;
 import org.omg.PortableInterceptor.Interceptor;
 
 import java.util.Random;
+
+import javax.naming.Context;
 
 public class flappy extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -36,6 +39,7 @@ public class flappy extends ApplicationAdapter {
 	Rectangle recTop;
 	Rectangle recBottom;
 	Random randomGenerator;
+	Preferences scores;
 	//testing
 	
 	@Override
@@ -50,8 +54,9 @@ public class flappy extends ApplicationAdapter {
 		font = new BitmapFont();
 		font.setColor(Color.WHITE);
 		font.getData().setScale(10);
+		scores = Gdx.app.getPreferences("High Scores");
+		scores.putInteger("currentHighScore", 0);
 		reset();
-
 	}
 
 	public void reset()
@@ -69,9 +74,16 @@ public class flappy extends ApplicationAdapter {
 
 	public void gameOver(){
 		gameState = 0;
+		if(scores.getInteger("currentHighScore") < score) {
+			scores.putInteger("currentHighScore", score);
+			scores.flush();
+		}
+
 		batch.begin();
 		font.draw(batch, "GAME OVER", 100, 500);
+		font.draw(batch, "HIGH SCORE: " + scores.getInteger("currentHighScore"), 100, 800);
 		batch.end();
+
 		if (Gdx.input.justTouched()) {
 			reset();
 		}
@@ -134,6 +146,7 @@ public class flappy extends ApplicationAdapter {
 		if (Intersector.overlaps(birdCircle, recBottom) || Intersector.overlaps(birdCircle, recTop))
 		{
 			gameOver();
+
 		}
 	}
 }
