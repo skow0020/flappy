@@ -16,7 +16,7 @@ android {
     }
     defaultConfig {
         applicationId "com.mygdx.game"
-        minSdkVersion 8
+        minSdkVersion 9
         targetSdkVersion 23
     }
 }
@@ -123,4 +123,8 @@ idea {
             }
         }
     }
+}
+
+dependencies {
+    compile 'com.google.android.gms:play-services-ads:7.8.0'
 }
