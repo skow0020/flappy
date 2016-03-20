@@ -12,12 +12,15 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.audio.Music;
 
 import org.omg.PortableInterceptor.Interceptor;
 
 import java.util.Random;
 
 import javax.naming.Context;
+
+import javafx.scene.media.MediaPlayer;
 
 public class flappy extends ApplicationAdapter {
 	SpriteBatch batch;
@@ -40,7 +43,7 @@ public class flappy extends ApplicationAdapter {
 	Rectangle recBottom;
 	Random randomGenerator;
 	Preferences scores;
-	//testing
+	private Music music;
 	
 	@Override
 	public void create () {
@@ -57,6 +60,11 @@ public class flappy extends ApplicationAdapter {
 		scores = Gdx.app.getPreferences("High Scores");
 		scores.putInteger("currentHighScore", 0);
 		reset();
+		music = Gdx.audio.newMusic(Gdx.files.internal("music.mp3"));
+		music.setLooping(true);
+
+		// start the playback of the background music immediately
+		music.play();
 	}
 
 	public void reset()
